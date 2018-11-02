@@ -308,9 +308,9 @@ ifdef TCE_CUDA
 endif
 
 ifdef TCE_HIP
-  LIB_DEFINES += $(HIP_INCLUDE)
-  DEFINES += -DTCE_HIP
-  OBJ += util_cuda_support.hip.o
+  LIB_DEFINES += $(HIP_INCLUDE) 
+  DEFINES += -DTCE_HIP -D__HIP_PLATFORM_HCC__= -I/opt/rocm/include -I/opt/rocm/hcc/include/
+  OBJ += util_cuda_support.o 
 endif
 
 ifdef USE_FORTRAN2003
