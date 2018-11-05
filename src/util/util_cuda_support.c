@@ -12,18 +12,13 @@
 #endif
 #include "ga.h"
 #include "typesf2c.h"
-#ifdef TCE_CUDA
 Integer FATR util_cuda_get_num_devices_(){
   int dev_count_check;
+  #ifdef TCE_CUDA
   cudaGetDeviceCount(&dev_count_check);
-  return (Integer) dev_count_check;
-}
-#endif
-#ifdef TCE_HIP
-Integer FATR util_cuda_get_num_devices_(){
-  int dev_count_check;
+  #else
   hipGetDeviceCount(&dev_count_check);
+  #endif
   return (Integer) dev_count_check;
 }
-#endif
 /* $Id$ */
