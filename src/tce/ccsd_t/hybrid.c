@@ -35,7 +35,8 @@ int device_init_(long *icuda,long *cuda_device_number ) {
   device_id = util_my_smp_index();
 #ifdef TCE_CUDA
   cudaGetDeviceCount(&dev_count_check);
-#else
+#endif
+#ifdef TCE_HIP
   hipGetDeviceCount(&dev_count_check);
 #endif
   if(dev_count_check < *icuda){
@@ -46,7 +47,8 @@ int device_init_(long *icuda,long *cuda_device_number ) {
   else {
 #ifdef TCE_CUDA
     cudaSetDevice(device_id);
-#else
+#endif
+#ifdef TCE_HIP
     hipSetDevice(device_id);
 #endif
   }

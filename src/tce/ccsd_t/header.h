@@ -11,16 +11,17 @@ extern "C" {
 #endif
 
 #include <stdio.h>
+#ifdef TCE_CUDA
 #ifdef OLD_CUDA
 #include <cuda_runtime_api.h>
 #else
 #include <cuda.h>
 #endif
+#endif
 #include <sys/types.h>
 #include <sys/time.h>
 #include <assert.h>
 #include <time.h>
-#include "cuda.h"
 ////#include "util.h"
 
 #ifdef TCE_CUDA

@@ -2816,6 +2816,7 @@ ifndef CUDA
   CUDA = nvcc
 endif
 ifdef TCE_CUDA
+  DEFINES += -DTCE_CUDA
   CORE_LIBS += $(CUDA_LIBS)
   EXTRA_LIBS += -lstdc++
   ifdef USE_TTLG
@@ -2830,6 +2831,7 @@ ifndef HIP
   HIP = hipcc
 endif
 ifdef TCE_HIP
+  DEFINES += -DTCE_HIP $(shell hipconfig --cpp_config)
   CORE_LIBS += $(HIP_LIBS)
   EXTRA_LIBS += -lstdc++
 endif
@@ -2961,10 +2963,10 @@ CUDA_VERS_GE8=$(shell nvcc --version|egrep rel|  awk '/release 9/ {print "Y";exi
               CUDA_FLAGS = -O3  -std=c++11 -DNOHTIME -Xptxas --warn-on-spills $(CUDA_ARCH) 
         endif
 (%.o):  %.cu
-	$(CUDA) -c $(CUDA_FLAGS) $(CUDA_INCLUDE) -I$(NWCHEM_TOP)/src/tce/ttlg/includes -o $% $<
+	$(CUDA) -c -DTCE_CUDA $(CUDA_FLAGS) $(CUDA_INCLUDE) -I$(NWCHEM_TOP)/src/tce/ttlg/includes -o $% $<
 else
 (%.o):  %.cu
-	$(CUDA) -c $(CUDA_FLAGS) $(CUDA_INCLUDE) -o $% $<
+	$(CUDA) -c -DTCE_CUDA $(CUDA_FLAGS) $(CUDA_INCLUDE) -o $% $<
 endif
 endif
 
